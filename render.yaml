@@ -1,0 +1,23 @@
+services:
+  - type: worker
+    name: passwordgenstrengthbot
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: BOT_USERNAME
+        value: Passwordgenstrengthbot
+      - key: DATABASE_URL
+        value: sqlite+aiosqlite:////var/data/bot.db
+      - key: DEFAULT_PASSWORD_LENGTH
+        value: "16"
+      - key: LOG_LEVEL
+        value: INFO
+      - key: PYTHON_VERSION
+        value: 3.12.3
+    disk:
+      name: sqlite-data
+      mountPath: /var/data
+      sizeGB: 1
